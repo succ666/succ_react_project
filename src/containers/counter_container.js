@@ -1,38 +1,16 @@
 import Counter from '../components/counter'
-import {createDecrementAction,createIncrementAction} from '../redux/action_creators'
+import {
+  createDecrementAction,
+  createIncrementAction,
+  createIncrementAsyncAction
+} from '../redux/actions/counter_action'
+
 import {connect} from 'react-redux'
 
-/*
-完整写法
-function mapStateToProps(state) {
-  return {count:state}
-}
-*/
-//简写方式
-// let mapStateToProps = state => ({count:state})
-
-/*
-完整写法
-function mapDispatchToProps(dispatch) {
-  return {
-    increment:(value)=>{dispatch(createIncrementAction(value))},
-    decrement:(value)=>{dispatch(createDecrementAction(value))}
-  }
-}
-*/
-//简写方式
-// let mapDispatchToProps = dispatch => ({
-//   increment:(value)=>{dispatch(createIncrementAction(value))},
-//   decrement:(value)=>{dispatch(createDecrementAction(value))}
-// })
-
-/*
-完整写法
-export default connect(mapStateToProps,mapDispatchToProps)(Counter)
-*/
-
-//简写方式
 export default connect(
-  state => ({count:state}),
-  {increment:createIncrementAction,decrement:createDecrementAction}
+  state => ({count:state.count}), //这里的state时store所管理的哪个“超级大的”对象，里面包含所有的状态
+  {
+    increment:createIncrementAction,
+    decrement:createDecrementAction,
+    incrementAsync:createIncrementAsyncAction}
   )(Counter)
